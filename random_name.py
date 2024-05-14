@@ -22,7 +22,7 @@ def generate_instances():
     last_name = name[1]
     
     # Generating random email
-    rand_int = random.randint(1, 500)
+    rand_int = random.randint(1, 999999999)
     if rand_int & 1 == 0:
         email = f'{firs_name}{rand_int}@gmail.com'
     else:

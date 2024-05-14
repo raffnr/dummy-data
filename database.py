@@ -1,9 +1,11 @@
 import mariadb
 from random_name import generate_instances
 
+data_amount = int(input('Enter number of data that you want to generate: '))
+
 data = []
 
-for i in range(100):
+for i in range(data_amount):
     data.append(generate_instances())
 
 insert_query = "INSERT INTO seller (email, first_name, last_name, phone) VALUES (%s, %s, %s, %s)"
@@ -22,7 +24,7 @@ try:
 
     # Commit the changes to the database
     conn.commit()
-    print("Data inserted successfully!")
+    print("Data berhasil di insert ke database!")
 except mariadb.Error as e:
     print(f"Error inserting data: {e}")
 finally:
