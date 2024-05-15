@@ -1,14 +1,33 @@
 import mariadb
+import time
+import math
 from random_name import generate_instances
 
-data_amount = int(input('Enter number of data that you want to generate: '))
+start_time = time.time()
+
+data_amount = int(input('Masukan jumlah dummy data yang ingin digenerate: '))
 
 data = []
 
-for i in range(data_amount):
-    data.append(generate_instances())
+index = 0
 
-insert_query = "INSERT INTO seller (email, first_name, last_name, phone) VALUES (%s, %s, %s, %s)"
+while index < data_amount:
+    instances = generate_instances()
+
+    if len(data) > 0:
+        for i in range(len(data)):
+            if data[i][0] == instances[0]:
+                break
+            elif i == (len(data) - 1):
+                data.append(instances)
+                index+=1
+                print(f'inserting dummy data ke - {index}')
+    else:
+        data.append(instances)
+        index+=1
+        print(f'inserting dummy data ke - {index}')
+
+insert_query = "INSERT INTO seller (email, first_name, last_name, city, phone) VALUES (%s, %s, %s, %s, %s)"
 
 try:
     conn = mariadb.connect(
@@ -24,7 +43,6 @@ try:
 
     # Commit the changes to the database
     conn.commit()
-    print("Data berhasil di insert ke database!")
 except mariadb.Error as e:
     print(f"Error inserting data: {e}")
 finally:
@@ -32,3 +50,6 @@ finally:
     cur.close()
     conn.close()
 
+end_time = time.time()
+total_time = end_time - start_time
+print(f'Berhasil inserting {index} dummy data ke database dalam waktu {math.floor(total_time)} detik')
