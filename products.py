@@ -1,6 +1,25 @@
 import requests
+import mariadb
 from bs4 import BeautifulSoup
 import random
+
+def get_id():
+    conn = mariadb.connect(
+        user="root",
+        host="localhost",
+        port=3306,
+        database="db_olshop"
+    )
+    cur = conn.cursor()
+
+    cur.execute("SELECT COUNT(name) FROM products")
+    conn.commit()
+
+    for i in cur:
+        data = i
+
+    conn.close()
+    return data[0]
 
 def generateData(search_key, num_pages, category):
     data = []
@@ -13,7 +32,7 @@ def generateData(search_key, num_pages, category):
 
         title = html_document.css.select(".title")
         price = html_document.css.select(".price-value")
-
+        
         j = 3
 
         while j < len(title) - 33:
@@ -26,10 +45,5 @@ def generateData(search_key, num_pages, category):
             j+=1
     
     return data
-
-
-
-
-
 
 

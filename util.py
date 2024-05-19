@@ -3,6 +3,8 @@ def filter_space(keyword):
         if char == ' ':
             keyword = keyword.split(' ')
             break
+        else:
+            return keyword
 
     result = ''
 
