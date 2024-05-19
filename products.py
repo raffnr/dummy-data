@@ -20,7 +20,6 @@ def generateData(search_key, num_pages, category):
             produk = title[j].string[1:]
             harga_raw = price[j - 3].string[3:].split('.')
             harga = harga_raw[0] + harga_raw[1]
-            # Generate stock amount randomly
             stock = random.randint(50, 300)
             data_tuple = (produk, category, int(harga), stock)
             data.append(data_tuple)
