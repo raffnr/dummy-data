@@ -1,6 +1,6 @@
 import mariadb
-from products import generateData
-from util import filter_space
+from products.products import generateData
+from products.util import filter_space
 
 db_name = input('Enter database name: ')
 keyword = input('Enter the products search keyword: ')
